@@ -1,0 +1,9 @@
+{
+  "name": "pbc",
+  "version": "1.0.0",
+  "description": "Peanut Butter & Chocolate: Opus orchestrates, Sonnet researches in parallel, Codex implements and reviews.",
+  "author": {
+    "name": "Matt Groff"
+  },
+  "license": "MIT"
+}

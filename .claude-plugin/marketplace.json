@@ -1,0 +1,22 @@
+{
+  "name": "mattlgroff-pbc",
+  "owner": {
+    "name": "Matt Groff"
+  },
+  "metadata": {
+    "description": "Opus + Sonnet + Codex pipeline for research, planning, implementation, and code review"
+  },
+  "plugins": [
+    {
+      "name": "pbc",
+      "source": "./plugins/pbc",
+      "description": "Peanut Butter & Chocolate: Opus orchestrates, Sonnet researches in parallel, Codex implements and reviews. A 4-step pipeline — Research, Plan, Implement, Review.",
+      "author": {
+        "name": "Matt Groff"
+      },
+      "repository": "https://github.com/mattlgroff/pbc",
+      "license": "MIT",
+      "keywords": ["research", "planning", "implementation", "code-review", "pr-comments", "codex", "agents", "opus", "sonnet"]
+    }
+  ]
+}

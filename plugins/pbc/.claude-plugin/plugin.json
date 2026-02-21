@@ -1,0 +1,11 @@
+{
+  "name": "pbc",
+  "version": "1.0.0",
+  "description": "Peanut Butter & Chocolate: Opus orchestrates, Sonnet researches in parallel, Codex implements and reviews. A 4-step pipeline — Research, Plan, Implement, Review — combining the best of Claude and OpenCode.",
+  "author": {
+    "name": "Matt Groff"
+  },
+  "repository": "https://github.com/mattlgroff/pbc",
+  "license": "MIT",
+  "keywords": ["research", "planning", "implementation", "code-review", "codex", "agents", "opus", "sonnet"]
+}

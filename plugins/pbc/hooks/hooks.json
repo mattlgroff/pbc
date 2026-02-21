@@ -1,0 +1,17 @@
+{
+  "description": "Prevents inline heredoc execution with opencode CLI — forces file-based packet pattern",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/block-opencode-heredoc.mjs\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
