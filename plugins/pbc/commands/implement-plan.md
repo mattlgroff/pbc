@@ -42,7 +42,7 @@ Use this execution pattern:
 
 ```bash
 PACKET_PATH="thoughts/packets/YYYY-MM-DD-description.md"
-opencode run --model openai/gpt-5.3-codex < "$PACKET_PATH"
+opencode run --model openai/gpt-5.4 < "$PACKET_PATH"
 ```
 
 ### Execution Safety Gate (required)
@@ -56,7 +56,7 @@ Before executing `opencode run`, inspect the command string you are about to run
 Blocked: Inline heredoc packet execution is disabled.
 
 Write the Coding Agent Execution Packet to a file in thoughts/packets/ and run:
-opencode run --model openai/gpt-5.3-codex < "<packet-file>"
+opencode run --model openai/gpt-5.4 < "<packet-file>"
 ```
 
 Before first execution in a session, run a quick preflight check:
@@ -70,13 +70,13 @@ If OpenCode CLI is unavailable or execution fails, do **not** continue silently.
 ```
 OpenCode execution failed.
 
-To use this workflow, please install and configure OpenCode with an OpenAI provider that supports `openai/gpt-5.3-codex`.
+To use this workflow, please install and configure OpenCode with an OpenAI provider that supports `openai/gpt-5.4`.
 
 Required setup:
 1. Install OpenCode CLI
 2. Authenticate provider: `opencode auth login`
 3. Confirm provider/model availability: `opencode models --refresh`
-4. Ensure `openai/gpt-5.3-codex` is configured with default `reasoningEffort: medium`
+4. Ensure `openai/gpt-5.4` is configured with default `reasoningEffort: medium`
 
 Once setup is complete, rerun /implement-plan.
 ```

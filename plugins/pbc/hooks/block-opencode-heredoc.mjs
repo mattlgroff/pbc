@@ -46,7 +46,7 @@ function main() {
 
   if (HEREDOC_INLINE_RE.test(command) || PACKET_EOF_RE.test(command)) {
     deny(
-      'Blocked: inline heredoc packet execution with opencode is disabled. Write packet content to a .md file in thoughts/ and run `opencode run --model openai/gpt-5.3-codex < "<packet-file>"`.'
+      'Blocked: inline heredoc packet execution with opencode is disabled. Write packet content to a .md file in thoughts/ and run `opencode run --model openai/gpt-5.4 < "<packet-file>"`.'
     );
   }
 }

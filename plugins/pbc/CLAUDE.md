@@ -16,7 +16,7 @@ Peanut Butter & Chocolate — two great things that work better together.
 All delegation to Codex: **write a prompt to a `.md` file, then pipe via stdin**.
 
 ```bash
-opencode run --model openai/gpt-5.3-codex < "thoughts/packets/my-packet.md"
+opencode run --model openai/gpt-5.4 < "thoughts/packets/my-packet.md"
 ```
 
 Never use heredocs. Always file redirection. A PreToolUse hook enforces this.

@@ -182,7 +182,7 @@ Run and report:
 2. **Send to Codex**:
    ```bash
    PACKET_PATH="thoughts/reviews/YYYY-MM-DD-pr<N>-comment<ID>.md"
-   opencode run --model openai/gpt-5.3-codex < "$PACKET_PATH"
+   opencode run --model openai/gpt-5.4 < "$PACKET_PATH"
    ```
 
 If OpenCode CLI is unavailable or execution fails, report this guidance:
@@ -190,13 +190,13 @@ If OpenCode CLI is unavailable or execution fails, report this guidance:
 ```
 OpenCode execution failed.
 
-To use this workflow, please install and configure OpenCode with an OpenAI provider that supports `openai/gpt-5.3-codex`.
+To use this workflow, please install and configure OpenCode with an OpenAI provider that supports `openai/gpt-5.4`.
 
 Required setup:
 1. Install OpenCode CLI
 2. Authenticate provider: `opencode auth login`
 3. Confirm provider/model availability: `opencode models --refresh`
-4. Ensure `openai/gpt-5.3-codex` is configured with default `reasoningEffort: medium`
+4. Ensure `openai/gpt-5.4` is configured with default `reasoningEffort: medium`
 
 Once setup is complete, rerun /address-pr-comments.
 ```

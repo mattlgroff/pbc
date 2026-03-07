@@ -18,7 +18,7 @@ A Claude Code plugin that combines Claude (Opus + Sonnet) with OpenCode/Codex in
 ## Requirements
 
 - [Claude Code](https://claude.ai/code) (CLI)
-- [OpenCode](https://opencode.ai/) with `openai/gpt-5.3-codex` configured — [install instructions](https://opencode.ai/docs#install)
+- [OpenCode](https://opencode.ai/) with `openai/gpt-5.4` configured — [install instructions](https://opencode.ai/docs#install)
 
 ## Installation
 
