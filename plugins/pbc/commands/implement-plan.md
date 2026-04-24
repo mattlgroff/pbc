@@ -76,7 +76,7 @@ Required setup:
 1. Install OpenCode CLI
 2. Authenticate provider: `opencode auth login`
 3. Confirm provider/model availability: `opencode models --refresh`
-4. Ensure `openai/gpt-5.5-fast` is configured with default `reasoningEffort: high`
+4. Ensure `openai/gpt-5.5-fast` is configured with default `reasoningEffort: low`
 
 Once setup is complete, rerun /implement-plan.
 ```
