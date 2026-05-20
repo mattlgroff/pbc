@@ -1,24 +1,26 @@
 # pbc
 
-A Claude Code plugin that combines Claude (Opus + Sonnet) with OpenCode/Codex in a 4-step pipeline: **Research → Plan → Implement → Review**.
+A Claude Code plugin that combines Claude (Opus + Sonnet) with Codex in a pipeline: **Research → Plan → Grill → Implement → Review**.
 
-**Peanut Butter** = Claude (Opus orchestrates, Sonnet researches in parallel)
-**Chocolate** = OpenCode/Codex (implements code and reviews it)
+**Peanut Butter** = Claude (Opus orchestrates, Sonnet researches in parallel via Agent tool)
+**Chocolate** = Codex (implements code and reviews it via Codex CLI)
 
-## Commands
+## Skills
 
-| Command | What it does |
-|---------|-------------|
-| `/research-codebase` | Spawns parallel Sonnet sub-agents to explore your codebase and gather context |
-| `/create-plan` | Interactive planning session — Opus creates a detailed implementation plan |
-| `/implement-plan` | Generates execution packets and delegates implementation to Codex via OpenCode CLI |
-| `/review-work` | Sends work to Codex for independent review, Opus triages feedback, Codex fixes — loops until clean |
-| `/address-pr-comments` | Triages PR review comments, aligns with user, then delegates fixes to Codex — one packet per comment |
+| Skill | What it does |
+|-------|-------------|
+| `/pbc:research-codebase` | Spawns parallel Sonnet sub-agents to explore your codebase and gather context |
+| `/pbc:create-plan` | Interactive planning session — Opus creates a detailed implementation plan |
+| `/pbc:grill-me` | Stress-tests a plan or design by asking decision-focused questions one at a time |
+| `/pbc:implement-plan` | Generates execution packets and delegates implementation to Codex CLI |
+| `/pbc:review-work` | Sends work to Codex for independent review, Opus triages feedback, Codex fixes — loops until clean |
+| `/pbc:address-pr-comments` | Triages PR review comments, aligns with user, then delegates fixes to Codex — one packet per comment |
+| `/pbc:handoff` | Writes a concise handoff document for the next session |
 
 ## Requirements
 
 - [Claude Code](https://claude.ai/code) (CLI)
-- [OpenCode](https://opencode.ai/) with `openai/gpt-5.5-fast` configured — [install instructions](https://opencode.ai/docs#install)
+- [Codex CLI](https://github.com/openai/codex) with `gpt-5.5` model access
 
 ## Installation
 
@@ -45,31 +47,39 @@ Use `--scope project` to install into the current project only, or `--scope user
 ## Typical workflow
 
 ```
-/research-codebase [ticket or description]
-/create-plan [ticket or context]
-/implement-plan [path to plan]
-/review-work [description of work]
-/address-pr-comments [pr number or url]
+/pbc:research-codebase [topic or question]
+/pbc:create-plan [ticket or context]
+/pbc:grill-me                           # optional: stress-test the plan
+/pbc:implement-plan [path to plan]
+/pbc:review-work [description of work]
+/pbc:address-pr-comments [pr number]     # after PR is up
+/pbc:handoff                             # end of session
 ```
 
-Each step builds on the previous. Research gathers context, planning produces a detailed spec, implementation delegates to Codex phase-by-phase, and review gets an independent second opinion with automated fix loops. After a PR is up, `/address-pr-comments` handles incoming reviewer feedback.
+Each step builds on the previous. Research gathers context, planning produces a detailed spec, grill-me stress-tests decisions, implementation delegates to Codex phase-by-phase, and review gets an independent second opinion with automated fix loops. After a PR is up, `address-pr-comments` handles reviewer feedback. Handoff preserves session state for the next run.
 
 ## How it works
 
-### Research (`/research-codebase`)
-Spawns parallel Sonnet sub-agents (codebase-locator, codebase-analyzer, codebase-pattern-finder) to explore your codebase. Outputs a research document to `thoughts/research/`.
+### Research (`/pbc:research-codebase`)
+Spawns parallel Sonnet sub-agents via the Agent tool to explore your codebase. Outputs a research document to `thoughts/research/`.
 
-### Plan (`/create-plan`)
+### Plan (`/pbc:create-plan`)
 Opus reads all context and works interactively with you to produce a phased implementation plan. Saves to `thoughts/plans/`.
 
-### Implement (`/implement-plan`)
-Opus generates self-contained execution packets from the plan and sends them to Codex via `opencode run`. Executes all phases continuously without pausing. Packets saved to `thoughts/packets/`.
+### Grill (`/pbc:grill-me`)
+Walks down each branch of the design tree, asking one decision-focused question at a time until shared understanding is reached. Uses `AskUserQuestion` for structured questions and `WebSearch` for external context.
 
-### Review (`/review-work`)
+### Implement (`/pbc:implement-plan`)
+Opus generates self-contained execution packets from the plan and sends them to Codex via `codex exec`. Executes all phases continuously without pausing. Packets saved to `thoughts/packets/`.
+
+### Review (`/pbc:review-work`)
 Codex independently reviews the changes. Opus triages findings (agree/fix, agree/defer, disagree/skip). Accepted fixes are packaged into fix packets and sent back to Codex. Loops until clean or 3 rounds max. Artifacts saved to `thoughts/reviews/`.
 
-### Address PR Comments (`/address-pr-comments`)
-After a PR is up and reviewers leave comments, Opus fetches all comments, triages each one (agree/fix, agree/defer, disagree/skip), and presents the triage for user alignment. Approved fixes are sent to Codex one packet per comment. Optionally resolves addressed threads on GitHub. Never replies to or comments on the PR. Artifacts saved to `thoughts/reviews/`.
+### Address PR Comments (`/pbc:address-pr-comments`)
+After a PR is up and reviewers leave comments, Opus fetches all comments, triages each one, and presents the triage for user alignment. Approved fixes are sent to Codex one packet per comment. Optionally resolves addressed threads on GitHub. Artifacts saved to `thoughts/reviews/`.
+
+### Handoff (`/pbc:handoff`)
+Writes a concise continuation document to `thoughts/handoffs/` referencing all artifacts, decisions, and suggested next skills.
 
 ## Generated artifacts
 
@@ -80,7 +90,8 @@ thoughts/
 ├── research/    # Research documents
 ├── plans/       # Implementation plans
 ├── packets/     # Execution packets sent to Codex
-└── reviews/     # Review prompts and fix packets
+├── reviews/     # Review prompts and fix packets
+└── handoffs/    # Session handoff documents
 ```
 
 Add to your `.gitignore`:
@@ -88,19 +99,6 @@ Add to your `.gitignore`:
 ```
 thoughts/
 ```
-
-## Sub-agents
-
-The plugin includes 8 Sonnet sub-agents:
-
-- **codebase-locator** — Finds files related to a task
-- **codebase-analyzer** — Analyzes how implementations work
-- **codebase-pattern-finder** — Finds similar patterns to model after
-- **thoughts-locator** — Discovers documents in thoughts/
-- **thoughts-analyzer** — Analyzes research and plan documents
-- **jira-ticket-reader** — Reads Jira tickets via CLI
-- **jira-searcher** — Searches Jira for related issues
-- **web-search-researcher** — External documentation research
 
 ## Credits
 

@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 import { readFileSync } from 'node:fs';
 
-const OPENCODE_RE = /(^|\s)opencode(\s|$)/i;
+const CODEX_RE = /(^|\s)codex(\s|$)/i;
+const EXEC_RE = /\bexec\b/i;
 const HEREDOC_INLINE_RE = /(\$\(\s*cat\s*<<)|(\bcat\s*<<)|(<<\s*'?[A-Za-z0-9_\-]+'?)/i;
 const PACKET_EOF_RE = /\bPACKET_EOF\b/i;
 
@@ -42,11 +43,11 @@ function main() {
   command = command.trim();
   if (!command) return;
 
-  if (!OPENCODE_RE.test(command)) return;
+  if (!CODEX_RE.test(command) || !EXEC_RE.test(command)) return;
 
   if (HEREDOC_INLINE_RE.test(command) || PACKET_EOF_RE.test(command)) {
     deny(
-      'Blocked: inline heredoc packet execution with opencode is disabled. Write packet content to a .md file in thoughts/ and run `opencode run --model openai/gpt-5.4 < "<packet-file>"`.'
+      'Blocked: inline heredoc packet execution with codex exec is disabled. Write packet content to a .md file in thoughts/ and run `codex exec -m gpt-5.5 -c model_reasoning_effort="low" -c service_tier="fast" < "$PACKET_PATH"`.'
     );
   }
 }
