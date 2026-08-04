@@ -16,7 +16,7 @@
       },
       "repository": "https://github.com/mattlgroff/pbc",
       "license": "MIT",
-      "keywords": ["research", "planning", "implementation", "code-review", "codex", "opus", "grill-me", "handoff"]
+      "keywords": ["research", "planning", "implementation", "code-review", "codex", "claude", "grill-me", "artifact", "handoff"]
     }
   ]
 }

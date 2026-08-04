@@ -1,11 +1,11 @@
 {
   "name": "pbc",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Peanut Butter & Chocolate: Claude orchestrates and plans, Codex implements and reviews. A pipeline — Research, Plan, Grill, Implement, Review — combining the best of Claude and Codex.",
   "author": {
     "name": "Matt Groff"
   },
   "repository": "https://github.com/mattlgroff/pbc",
   "license": "MIT",
-  "keywords": ["research", "planning", "implementation", "code-review", "codex", "opus", "grill-me", "handoff"]
+  "keywords": ["research", "planning", "implementation", "code-review", "codex", "claude", "grill-me", "artifact", "handoff"]
 }

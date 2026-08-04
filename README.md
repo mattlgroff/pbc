@@ -12,6 +12,7 @@ A Claude Code plugin that combines Claude with Codex in a pipeline: **Research �
 | `/pbc:research-codebase` | Spawns parallel Sonnet sub-agents to explore your codebase and gather context |
 | `/pbc:create-plan` | Interactive planning session — Claude creates a detailed implementation plan |
 | `/pbc:grill-me` | Stress-tests a plan or design by asking decision-focused questions one at a time |
+| `/pbc:grill-me-with-claude-code-artifact` | Stress-tests a plan through rounds of an interactive Claude Code artifact form |
 | `/pbc:implement-plan` | Generates execution packets and delegates implementation to Codex CLI |
 | `/pbc:review-work` | Sends work to Codex for independent review, Claude triages feedback, Codex fixes — loops until clean |
 | `/pbc:address-pr-comments` | Triages PR review comments, aligns with user, then delegates fixes to Codex — one packet per comment |
@@ -52,6 +53,7 @@ Use `--scope project` to install into the current project only, or `--scope user
 /pbc:research-codebase [topic or question]
 /pbc:create-plan [ticket or context]
 /pbc:grill-me                           # optional: stress-test the plan
+/pbc:grill-me-with-claude-code-artifact # optional: use an interactive form
 /pbc:implement-plan [path to plan]
 /pbc:review-work [description of work]
 /pbc:address-pr-comments [pr number]     # after PR is up
@@ -71,6 +73,9 @@ Claude reads all context and works interactively with you to produce a phased im
 ### Grill (`/pbc:grill-me`)
 Walks down each branch of the design tree, asking one decision-focused question at a time until shared understanding is reached. Uses `AskUserQuestion` for structured questions and `WebSearch` for external context.
 
+### Grill with Artifact (`/pbc:grill-me-with-claude-code-artifact`)
+Publishes 5-10 high-stakes questions at a time as an interactive Claude Code HTML artifact. The user fills out the form and pastes its generated response into chat; Claude updates the same artifact for additional rounds until every material decision is resolved.
+
 ### Implement (`/pbc:implement-plan`)
 Claude generates self-contained execution packets from the plan and sends them to Codex via `codex exec`. Executes all phases continuously without pausing. Packets saved to `thoughts/packets/`.
 
@@ -89,6 +94,7 @@ All generated artifacts go under `thoughts/` (recommended to gitignore):
 
 ```
 thoughts/
+├── artifacts/   # Interactive Claude Code artifact source files
 ├── research/    # Research documents
 ├── plans/       # Implementation plans
 ├── packets/     # Execution packets sent to Codex
