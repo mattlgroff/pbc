@@ -12,6 +12,8 @@ For role boundaries and Codex CLI conventions, see [CONVENTIONS.md](../../CONVEN
 
 Run an independent review loop for the current work.
 
+Use GPT-5.6 Sol with high reasoning on the standard service tier for every review and accepted-fix pass. Keep Fast mode off by explicitly setting `service_tier="default"`.
+
 ## Workflow
 
 1. Determine scope from the user description or from:
@@ -22,7 +24,7 @@ Run an independent review loop for the current work.
 3. Run a fresh Codex reviewer:
 
 ```bash
-codex exec -m gpt-5.6-luna -c model_reasoning_effort="max" -c service_tier="fast" < "$REVIEW_PROMPT_PATH"
+codex exec -m gpt-5.6-sol -c model_reasoning_effort="high" -c service_tier="default" < "$REVIEW_PROMPT_PATH"
 ```
 
 4. Triage findings:
@@ -30,7 +32,7 @@ codex exec -m gpt-5.6-luna -c model_reasoning_effort="max" -c service_tier="fast
    - Agree -> Defer
    - Disagree -> Skip
 5. Present triage to the user before applying fixes unless the user explicitly asked for fully automated review/fix.
-6. For accepted fixes, write a fix packet to `thoughts/reviews/YYYY-MM-DD-description-fix-roundN.md` and run `codex exec -m gpt-5.6-luna -c model_reasoning_effort="max" -c service_tier="fast" < "$FIX_PACKET_PATH"`.
+6. For accepted fixes, write a fix packet to `thoughts/reviews/YYYY-MM-DD-description-fix-roundN.md` and run `codex exec -m gpt-5.6-sol -c model_reasoning_effort="high" -c service_tier="default" < "$FIX_PACKET_PATH"`.
 7. Re-review until clean, only nits remain, a blocker appears, or three rounds have run.
 
 Never inline review or fix prompts with heredocs.

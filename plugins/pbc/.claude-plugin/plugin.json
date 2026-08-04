@@ -1,6 +1,6 @@
 {
   "name": "pbc",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Peanut Butter & Chocolate: Claude orchestrates and plans, Codex implements and reviews. A pipeline — Research, Plan, Grill, Implement, Review — combining the best of Claude and Codex.",
   "author": {
     "name": "Matt Groff"

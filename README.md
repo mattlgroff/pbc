@@ -21,9 +21,9 @@ A Claude Code plugin that combines Claude with Codex in a pipeline: **Research â
 ## Requirements
 
 - [Claude Code](https://claude.ai/code) (CLI)
-- [Codex CLI](https://github.com/openai/codex) with `gpt-5.6-luna` model access
+- [Codex CLI](https://github.com/openai/codex) with `gpt-5.6-luna` and `gpt-5.6-sol` model access
 
-> **August 2026 update:** We find that GPT-5.6 Luna with max reasoning offers the best price-to-performance for coding agents. The fast service tier is affordable enough to use without exhausting your usage allowance.
+> **August 2026 update:** We find that GPT-5.6 Luna with max reasoning and the fast service tier offers the best price-to-performance for implementation agents without exhausting your usage allowance. For independent review, pbc uses GPT-5.6 Sol with high reasoning on the standard tier for deeper judgment without Fast mode's usage multiplier.
 
 ## Installation
 
@@ -80,7 +80,7 @@ Publishes 5-10 high-stakes questions at a time as an interactive Claude Code HTM
 Claude generates self-contained execution packets from the plan and sends them to Codex via `codex exec`. Executes all phases continuously without pausing. Packets saved to `thoughts/packets/`.
 
 ### Review (`/pbc:review-work`)
-Codex independently reviews the changes. Claude triages findings (agree/fix, agree/defer, disagree/skip). Accepted fixes are packaged into fix packets and sent back to Codex. Loops until clean or 3 rounds max. Artifacts saved to `thoughts/reviews/`.
+GPT-5.6 Sol independently reviews the changes with high reasoning and Fast mode off. Claude triages findings (agree/fix, agree/defer, disagree/skip). Accepted fixes are packaged into fix packets and sent back to Sol. Loops until clean or 3 rounds max. Artifacts saved to `thoughts/reviews/`.
 
 ### Address PR Comments (`/pbc:address-pr-comments`)
 After a PR is up and reviewers leave comments, Claude fetches all comments, triages each one, and presents the triage for user alignment. Approved fixes are sent to Codex one packet per comment. Optionally resolves addressed threads on GitHub. Artifacts saved to `thoughts/reviews/`.
