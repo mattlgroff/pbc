@@ -16,7 +16,7 @@ Do not suggest changes, critique implementation quality, or perform root cause a
 1. If no topic was provided, ask for the research question and wait.
 2. Read any directly mentioned files fully before delegating or searching further.
 3. Decompose the question into focused research areas.
-4. Use the `Agent` tool to spawn parallel Sonnet sub-agents for codebase exploration:
+4. Use the `Agent` tool to spawn parallel Claude sub-agents for codebase exploration:
    - **Locator agent**: Find where relevant files and components live. Use `rg --files`, directory listings, and glob patterns.
    - **Analyzer agent**: Explain how specific code paths work. Read key files, trace data flow, document implementation details.
    - **Pattern finder agent**: Find similar implementations, usage examples, and conventions to reference.

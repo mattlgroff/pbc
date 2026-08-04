@@ -1,19 +1,19 @@
 # pbc
 
-A Claude Code plugin that combines Claude (Opus + Sonnet) with Codex in a pipeline: **Research → Plan → Grill → Implement → Review**.
+A Claude Code plugin that combines Claude with Codex in a pipeline: **Research → Plan → Grill → Implement → Review**.
 
-**Peanut Butter** = Claude (Opus orchestrates, Sonnet researches in parallel via Agent tool)
+**Peanut Butter** = Claude (orchestrates, plans, and researches in parallel via the Agent tool)
 **Chocolate** = Codex (implements code and reviews it via Codex CLI)
 
 ## Skills
 
 | Skill | What it does |
 |-------|-------------|
-| `/pbc:research-codebase` | Spawns parallel Sonnet sub-agents to explore your codebase and gather context |
-| `/pbc:create-plan` | Interactive planning session — Opus creates a detailed implementation plan |
+| `/pbc:research-codebase` | Spawns parallel Claude sub-agents to explore your codebase and gather context |
+| `/pbc:create-plan` | Interactive planning session — Claude creates a detailed implementation plan |
 | `/pbc:grill-me` | Stress-tests a plan or design by asking decision-focused questions one at a time |
 | `/pbc:implement-plan` | Generates execution packets and delegates implementation to Codex CLI |
-| `/pbc:review-work` | Sends work to Codex for independent review, Opus triages feedback, Codex fixes — loops until clean |
+| `/pbc:review-work` | Sends work to Codex for independent review, Claude triages feedback, Codex fixes — loops until clean |
 | `/pbc:address-pr-comments` | Triages PR review comments, aligns with user, then delegates fixes to Codex — one packet per comment |
 | `/pbc:handoff` | Writes a concise handoff document for the next session |
 
@@ -21,6 +21,8 @@ A Claude Code plugin that combines Claude (Opus + Sonnet) with Codex in a pipeli
 
 - [Claude Code](https://claude.ai/code) (CLI)
 - [Codex CLI](https://github.com/openai/codex) with `gpt-5.6-luna` model access
+
+> **August 2026 update:** We find that GPT-5.6 Luna with max reasoning offers the best price-to-performance for coding agents. The fast service tier is affordable enough to use without exhausting your usage allowance.
 
 ## Installation
 
@@ -61,22 +63,22 @@ Each step builds on the previous. Research gathers context, planning produces a 
 ## How it works
 
 ### Research (`/pbc:research-codebase`)
-Spawns parallel Sonnet sub-agents via the Agent tool to explore your codebase. Outputs a research document to `thoughts/research/`.
+Spawns parallel Claude sub-agents via the Agent tool to explore your codebase. Outputs a research document to `thoughts/research/`.
 
 ### Plan (`/pbc:create-plan`)
-Opus reads all context and works interactively with you to produce a phased implementation plan. Saves to `thoughts/plans/`.
+Claude reads all context and works interactively with you to produce a phased implementation plan. Saves to `thoughts/plans/`.
 
 ### Grill (`/pbc:grill-me`)
 Walks down each branch of the design tree, asking one decision-focused question at a time until shared understanding is reached. Uses `AskUserQuestion` for structured questions and `WebSearch` for external context.
 
 ### Implement (`/pbc:implement-plan`)
-Opus generates self-contained execution packets from the plan and sends them to Codex via `codex exec`. Executes all phases continuously without pausing. Packets saved to `thoughts/packets/`.
+Claude generates self-contained execution packets from the plan and sends them to Codex via `codex exec`. Executes all phases continuously without pausing. Packets saved to `thoughts/packets/`.
 
 ### Review (`/pbc:review-work`)
-Codex independently reviews the changes. Opus triages findings (agree/fix, agree/defer, disagree/skip). Accepted fixes are packaged into fix packets and sent back to Codex. Loops until clean or 3 rounds max. Artifacts saved to `thoughts/reviews/`.
+Codex independently reviews the changes. Claude triages findings (agree/fix, agree/defer, disagree/skip). Accepted fixes are packaged into fix packets and sent back to Codex. Loops until clean or 3 rounds max. Artifacts saved to `thoughts/reviews/`.
 
 ### Address PR Comments (`/pbc:address-pr-comments`)
-After a PR is up and reviewers leave comments, Opus fetches all comments, triages each one, and presents the triage for user alignment. Approved fixes are sent to Codex one packet per comment. Optionally resolves addressed threads on GitHub. Artifacts saved to `thoughts/reviews/`.
+After a PR is up and reviewers leave comments, Claude fetches all comments, triages each one, and presents the triage for user alignment. Approved fixes are sent to Codex one packet per comment. Optionally resolves addressed threads on GitHub. Artifacts saved to `thoughts/reviews/`.
 
 ### Handoff (`/pbc:handoff`)
 Writes a concise continuation document to `thoughts/handoffs/` referencing all artifacts, decisions, and suggested next skills.
