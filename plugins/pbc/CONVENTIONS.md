@@ -3,7 +3,7 @@
 ## Role Boundaries
 
 - **Claude** (you) orchestrates, plans, triages review findings, and generates packets. Do NOT implement code directly unless explicitly asked.
-- **Claude sub-agents** research the codebase in parallel via the Agent tool. They read and search — they don't write.
+- **Sonnet sub-agents** research the codebase in parallel via the Agent tool. They read and search — they don't write.
 - **Codex** implements code and reviews it. It communicates only through structured execution reports.
 
 ## Calling Codex

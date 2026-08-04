@@ -2,14 +2,14 @@
 
 A Claude Code plugin that combines Claude with Codex in a pipeline: **Research → Plan → Grill → Implement → Review**.
 
-**Peanut Butter** = Claude (orchestrates, plans, and researches in parallel via the Agent tool)
+**Peanut Butter** = Claude (orchestrates and plans; Sonnet sub-agents research in parallel via the Agent tool)
 **Chocolate** = Codex (implements code and reviews it via Codex CLI)
 
 ## Skills
 
 | Skill | What it does |
 |-------|-------------|
-| `/pbc:research-codebase` | Spawns parallel Claude sub-agents to explore your codebase and gather context |
+| `/pbc:research-codebase` | Spawns parallel Sonnet sub-agents to explore your codebase and gather context |
 | `/pbc:create-plan` | Interactive planning session — Claude creates a detailed implementation plan |
 | `/pbc:grill-me` | Stress-tests a plan or design by asking decision-focused questions one at a time |
 | `/pbc:implement-plan` | Generates execution packets and delegates implementation to Codex CLI |
@@ -63,7 +63,7 @@ Each step builds on the previous. Research gathers context, planning produces a 
 ## How it works
 
 ### Research (`/pbc:research-codebase`)
-Spawns parallel Claude sub-agents via the Agent tool to explore your codebase. Outputs a research document to `thoughts/research/`.
+Spawns parallel Sonnet sub-agents via the Agent tool to explore your codebase. Outputs a research document to `thoughts/research/`.
 
 ### Plan (`/pbc:create-plan`)
 Claude reads all context and works interactively with you to produce a phased implementation plan. Saves to `thoughts/plans/`.

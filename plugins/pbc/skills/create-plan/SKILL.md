@@ -15,7 +15,7 @@ Be skeptical and codebase-grounded. Read referenced files fully, research actual
 ## Workflow
 
 1. If context or file paths were provided, read them fully. If not, ask for the task, constraints, and related research.
-2. Inspect relevant code before asking design questions. Use `rg`, direct file reads, and the `Agent` tool to spawn parallel Claude sub-agents when the task is complex enough to benefit from broad codebase exploration.
+2. Inspect relevant code before asking design questions. Use `rg`, direct file reads, and the `Agent` tool to spawn parallel Sonnet sub-agents when the task is complex enough to benefit from broad codebase exploration.
 3. Find related `thoughts/research/`, `thoughts/plans/`, and docs.
 4. Present your understanding and only the questions that require human judgment.
 5. When the user asks to "grill me" or when the plan has important unresolved branches, switch into the `/pbc:grill-me` workflow before finalizing.
