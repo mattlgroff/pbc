@@ -11,7 +11,7 @@
 Write a prompt to a `.md` file under `thoughts/`, then pipe via stdin:
 
 ```bash
-codex exec -m gpt-5.5 -c model_reasoning_effort="low" -c service_tier="fast" < "$PACKET_PATH"
+codex exec -m gpt-5.6-luna -c model_reasoning_effort="max" -c service_tier="fast" < "$PACKET_PATH"
 ```
 
 Never use heredocs. Always file redirection. A PreToolUse hook enforces this.

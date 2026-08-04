@@ -22,7 +22,7 @@ Run an independent review loop for the current work.
 3. Run a fresh Codex reviewer:
 
 ```bash
-codex exec -m gpt-5.5 -c model_reasoning_effort="low" -c service_tier="fast" < "$REVIEW_PROMPT_PATH"
+codex exec -m gpt-5.6-luna -c model_reasoning_effort="max" -c service_tier="fast" < "$REVIEW_PROMPT_PATH"
 ```
 
 4. Triage findings:
@@ -30,7 +30,7 @@ codex exec -m gpt-5.5 -c model_reasoning_effort="low" -c service_tier="fast" < "
    - Agree -> Defer
    - Disagree -> Skip
 5. Present triage to the user before applying fixes unless the user explicitly asked for fully automated review/fix.
-6. For accepted fixes, write a fix packet to `thoughts/reviews/YYYY-MM-DD-description-fix-roundN.md` and run `codex exec -m gpt-5.5 -c model_reasoning_effort="low" -c service_tier="fast" < "$FIX_PACKET_PATH"`.
+6. For accepted fixes, write a fix packet to `thoughts/reviews/YYYY-MM-DD-description-fix-roundN.md` and run `codex exec -m gpt-5.6-luna -c model_reasoning_effort="max" -c service_tier="fast" < "$FIX_PACKET_PATH"`.
 7. Re-review until clean, only nits remain, a blocker appears, or three rounds have run.
 
 Never inline review or fix prompts with heredocs.

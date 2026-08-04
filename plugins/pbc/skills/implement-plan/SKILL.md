@@ -16,10 +16,10 @@ You are the orchestrator. Generate execution packets, run fresh Codex CLI instan
 
 - Do not inline packet content into shell commands.
 - Save every packet to `thoughts/packets/`.
-- Run nested Codex with GPT-5.5, low reasoning effort, fast service tier, and file redirection:
+- Run nested Codex with GPT-5.6 Luna, max reasoning effort, fast service tier, and file redirection:
 
 ```bash
-codex exec -m gpt-5.5 -c model_reasoning_effort="low" -c service_tier="fast" < "$PACKET_PATH"
+codex exec -m gpt-5.6-luna -c model_reasoning_effort="max" -c service_tier="fast" < "$PACKET_PATH"
 ```
 
 - Before running a nested Codex command, inspect the command string. If it contains `cat <<`, `$(cat <<`, `PACKET_EOF`, `<<EOF`, or another heredoc token, do not run it.
@@ -32,7 +32,7 @@ codex exec -m gpt-5.5 -c model_reasoning_effort="low" -c service_tier="fast" < "
 3. Read files referenced by the next unchecked implementation slice.
 4. Identify the smallest meaningful unchecked slice.
 5. Write a packet to `thoughts/packets/YYYY-MM-DD-description.md`.
-6. Run `codex --version` once per session, then execute `codex exec -m gpt-5.5 -c model_reasoning_effort="low" -c service_tier="fast" < "$PACKET_PATH"`.
+6. Run `codex --version` once per session, then execute `codex exec -m gpt-5.6-luna -c model_reasoning_effort="max" -c service_tier="fast" < "$PACKET_PATH"`.
 7. Capture and assess the returned report.
 8. Update completed plan checkboxes when the report and verification support it.
 9. Immediately continue with the next unchecked slice.

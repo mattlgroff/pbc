@@ -19,7 +19,7 @@ Triage and address review comments on an existing GitHub pull request.
 - Get user alignment on triage before fixes.
 - Use one fix packet per approved comment.
 - Save packets under `thoughts/reviews/`.
-- Execute packets with `codex exec -m gpt-5.5 -c model_reasoning_effort="low" -c service_tier="fast" < "$PACKET_PATH"` only.
+- Execute packets with `codex exec -m gpt-5.6-luna -c model_reasoning_effort="max" -c service_tier="fast" < "$PACKET_PATH"` only.
 
 ## Workflow
 
@@ -46,7 +46,7 @@ gh pr diff <pr>
    - Skip: already addressed, incorrect, or incompatible with project conventions.
 5. Present a triage table and wait for approval.
 6. For each approved fix, write `thoughts/reviews/YYYY-MM-DD-pr<N>-comment<ID>.md`.
-7. Run `codex exec -m gpt-5.5 -c model_reasoning_effort="low" -c service_tier="fast" < "$PACKET_PATH"`.
+7. Run `codex exec -m gpt-5.6-luna -c model_reasoning_effort="max" -c service_tier="fast" < "$PACKET_PATH"`.
 8. Review the execution report and continue one comment at a time.
 9. Run project-level validation when fixes are complete.
 10. Offer to resolve addressed inline threads, but only do so after explicit approval.

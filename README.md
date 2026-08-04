@@ -20,7 +20,7 @@ A Claude Code plugin that combines Claude (Opus + Sonnet) with Codex in a pipeli
 ## Requirements
 
 - [Claude Code](https://claude.ai/code) (CLI)
-- [Codex CLI](https://github.com/openai/codex) with `gpt-5.5` model access
+- [Codex CLI](https://github.com/openai/codex) with `gpt-5.6-luna` model access
 
 ## Installation
 

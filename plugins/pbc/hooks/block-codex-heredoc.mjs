@@ -47,7 +47,7 @@ function main() {
 
   if (HEREDOC_INLINE_RE.test(command) || PACKET_EOF_RE.test(command)) {
     deny(
-      'Blocked: inline heredoc packet execution with codex exec is disabled. Write packet content to a .md file in thoughts/ and run `codex exec -m gpt-5.5 -c model_reasoning_effort="low" -c service_tier="fast" < "$PACKET_PATH"`.'
+      'Blocked: inline heredoc packet execution with codex exec is disabled. Write packet content to a .md file in thoughts/ and run `codex exec -m gpt-5.6-luna -c model_reasoning_effort="max" -c service_tier="fast" < "$PACKET_PATH"`.'
     );
   }
 }
